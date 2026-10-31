@@ -18,16 +18,16 @@ function renderArticles() {
 }
 async function init() {
   try {
-    const response = await fetch('posts.json');
+    const response = await fetch('posts.json', { cache: 'no-cache' });
     if (!response.ok) throw new Error('Could not load the article list');
-    posts = (await response.json()).filter(post => !post.podcast && (post.path || safeUrl(post.url))).sort((a,b) => new Date(b.post_date) - new Date(a.post_date));
+    posts = (await response.json()).filter(post => !post.podcast && (post.path || safeUrl(post.url))).sort((a,b) => new Date(b.post_date) - new Date(a.post_date) || Number(b.id) - Number(a.id));
     if (!posts.length) throw new Error('No articles available');
     const latest = posts[0];
     document.querySelector('#hero').innerHTML = `${image(latest, true).replace('<img ', '<img class="hero-image" ')}<div class="hero-content"><p class="eyebrow"><span class="live-dot"></span> THE LATEST DISPATCH <span> / </span><time datetime="${escapeHtml(latest.post_date)}">${date(latest)}</time></p><h1 id="hero-title"><a href="${link(latest)}">${escapeHtml(latest.title)}</a></h1><p class="hero-author">${escapeHtml(attribution(latest))}</p><a class="hero-cta" href="${link(latest)}"><span aria-hidden="true">↗</span> Read the latest</a></div>`;
     document.querySelector('#spotlight-list').innerHTML = posts.slice(1,5).map(post => `<article class="spotlight-story"><div><h3><a href="${link(post)}">${escapeHtml(post.title)}</a></h3><time class="date" datetime="${escapeHtml(post.post_date)}">${date(post)}</time></div><a href="${link(post)}" tabindex="-1" aria-hidden="true">${image(post)}</a></article>`).join('');
     renderArticles();
   } catch (error) {
-    document.querySelector('#hero').innerHTML = '<p class="loading">The article list could not be loaded. Please refresh to try again.</p>';
+    // Keep the exported latest-story hero if the metadata request fails.
     document.querySelector('#load-more').hidden = true;
     console.error(error);
   }
