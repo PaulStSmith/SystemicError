@@ -1,3 +1,12 @@
+// Shared analytics applies to existing pages and every future export.
+(() => {
+  if (document.querySelector('script[data-systemic-analytics]')) return;
+  const tag = document.createElement('script');
+  tag.dataset.systemicAnalytics = '';
+  tag.async = true;
+  tag.src = new URL('analytics.js', document.currentScript.src).href;
+  document.head.append(tag);
+})();
 const dateFormat = new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', year: 'numeric' });
 const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 function safeUrl(value) { try { const url = new URL(value); return url.protocol === 'https:' ? url.href : ''; } catch { return ''; } }

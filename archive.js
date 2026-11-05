@@ -1,3 +1,12 @@
+// Shared analytics applies to existing pages and every future export.
+(() => {
+  if (document.querySelector('script[data-systemic-analytics]')) return;
+  const tag = document.createElement('script');
+  tag.dataset.systemicAnalytics = '';
+  tag.async = true;
+  tag.src = new URL('analytics.js', document.currentScript.src).href;
+  document.head.append(tag);
+})();
 const archiveEsc = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const archiveDate = new Intl.DateTimeFormat('en',{month:'short',day:'numeric',year:'numeric',timeZone:'America/Sao_Paulo'});
 const archiveDateParts = new Intl.DateTimeFormat('en',{year:'numeric',month:'2-digit',timeZone:'America/Sao_Paulo'});

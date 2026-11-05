@@ -1,3 +1,12 @@
+// Shared analytics applies to existing pages and every future export.
+(() => {
+  if (document.querySelector('script[data-systemic-analytics]')) return;
+  const tag = document.createElement('script');
+  tag.dataset.systemicAnalytics = '';
+  tag.async = true;
+  tag.src = new URL('analytics.js', document.currentScript.src).href;
+  document.head.append(tag);
+})();
 document.querySelector('a.skip-link')?.setAttribute('href',location.pathname+'#article-body');
 function updateReadingProgress(){const body=document.getElementById('article-body');if(!body)return;const start=body.getBoundingClientRect().top+scrollY;document.getElementById('reading-progress').style.width=`${Math.min(100,Math.max(0,(scrollY-start)/Math.max(1,body.offsetHeight-innerHeight)*100))}%`;}
 addEventListener('scroll',updateReadingProgress,{passive:true});addEventListener('resize',updateReadingProgress);updateReadingProgress();
