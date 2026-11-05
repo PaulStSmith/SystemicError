@@ -13,7 +13,7 @@ document.getElementById('copy-link')?.addEventListener('click',async event=>{con
   const grid=document.createElement('div');grid.className='next-grid';
   for(const post of stories){
     const card=document.createElement('article');card.className='article-card';
-    if(/^(https:\/\/|assets\/images\/[a-f0-9]+\.[a-z]+$)/i.test(post.cover_image||'')){const imageLink=document.createElement('a');imageLink.className='article-image';imageLink.href=post.path;imageLink.tabIndex=-1;imageLink.setAttribute('aria-hidden','true');const image=document.createElement('img');image.src=post.cover_image;image.alt='';image.loading='lazy';imageLink.append(image);card.append(imageLink);}
+    if(/^(https:\/\/|assets\/images\/(?:manual\/)?[a-f0-9]+\.[a-z]+$)/i.test(post.cover_image||'')){const imageLink=document.createElement('a');imageLink.className='article-image';imageLink.href=post.path;imageLink.tabIndex=-1;imageLink.setAttribute('aria-hidden','true');const image=document.createElement('img');image.src=post.cover_image;image.alt='';image.loading='lazy';imageLink.append(image);card.append(imageLink);}
     const title=document.createElement('h3');const link=document.createElement('a');link.href=post.path;link.textContent=post.title;title.append(link);card.append(title);
     const author=document.createElement('p');author.className='author';author.textContent=post.subtitle;card.append(author);grid.append(card);
   }

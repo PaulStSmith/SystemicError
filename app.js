@@ -1,7 +1,7 @@
 const dateFormat = new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', year: 'numeric' });
 const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 function safeUrl(value) { try { const url = new URL(value); return url.protocol === 'https:' ? url.href : ''; } catch { return ''; } }
-function localImage(value) { if (value === 'assets/image-unavailable.svg') return value; return /^assets\/images\/[a-f0-9]+\.[a-z]+$/.test(value || '') ? value : safeUrl(value); }
+function localImage(value) { if (value === 'assets/image-unavailable.svg') return value; return /^assets\/images\/(?:manual\/)?[a-f0-9]+\.[a-z]+$/.test(value || '') ? value : safeUrl(value); }
 function image(post, eager = false) { return `<img src="${escapeHtml(localImage(post.cover_image))}" alt="" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">`; }
 function link(post) { return escapeHtml(post.path || `article.html?slug=${encodeURIComponent(post.slug)}`); }
 function date(post) { return dateFormat.format(new Date(post.post_date)); }
@@ -9,7 +9,7 @@ function attribution(post) { return post.subtitle || (post.authors?.length ? `By
 let posts = [], visible = 9;
 function renderArticles() {
   const query = document.querySelector('#query').value.trim().toLocaleLowerCase();
-  const filtered = (query ? posts : posts.slice(1)).filter(post => `${post.title} ${attribution(post)}`.toLocaleLowerCase().includes(query));
+  const filtered = posts.filter(post => `${post.title} ${attribution(post)}`.toLocaleLowerCase().includes(query));
   document.querySelector('#article-grid').innerHTML = filtered.slice(0, visible).map(post => `<article class="article-card"><a class="article-image" href="${link(post)}" tabindex="-1" aria-hidden="true">${image(post)}</a><h3><a href="${link(post)}">${escapeHtml(post.title)}</a></h3><p class="author">${escapeHtml(attribution(post))}</p><time class="date" datetime="${escapeHtml(post.post_date)}">${date(post)}</time></article>`).join('');
   document.querySelector('#empty').hidden = filtered.length > 0;
   document.querySelector('#load-more').hidden = visible >= filtered.length;
