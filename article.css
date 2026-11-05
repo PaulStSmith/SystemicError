@@ -5,3 +5,5 @@
 
 .article-end .back-to-stories{font-size:15px;font-weight:600;padding:12px 0;margin-top:12px;min-height:44px}
 
+
+.article-body::after{content:"";display:block;clear:both}
