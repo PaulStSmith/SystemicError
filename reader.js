@@ -28,3 +28,12 @@ document.getElementById('copy-link')?.addEventListener('click',async event=>{con
   }
   section.append(eyebrow,heading,grid);document.getElementById('article-main').append(section);
 }catch{/* Article remains readable if related stories are unavailable. */}})();
+
+// Subscription and privacy links also reach existing article pages.
+(() => {
+  if (document.querySelector('script[data-systemic-publication]')) return;
+  const tag = document.createElement('script');
+  tag.dataset.systemicPublication = '';
+  tag.src = new URL('publication.js', document.currentScript.src).href;
+  document.head.append(tag);
+})();

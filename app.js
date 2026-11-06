@@ -46,3 +46,12 @@ document.querySelector('#search').addEventListener('submit', event => { event.pr
 document.querySelector('#load-more').addEventListener('click', () => { visible += 9; renderArticles(); });
 document.querySelector('#year').textContent = new Date().getFullYear();
 init();
+
+// Subscription and privacy links also reach existing article pages.
+(() => {
+  if (document.querySelector('script[data-systemic-publication]')) return;
+  const tag = document.createElement('script');
+  tag.dataset.systemicPublication = '';
+  tag.src = new URL('publication.js', document.currentScript.src).href;
+  document.head.append(tag);
+})();

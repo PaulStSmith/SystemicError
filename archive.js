@@ -51,3 +51,12 @@ async function loadArchive() {
 }
 document.getElementById('year').textContent=new Date().getFullYear();
 loadArchive();
+
+// Subscription and privacy links also reach existing article pages.
+(() => {
+  if (document.querySelector('script[data-systemic-publication]')) return;
+  const tag = document.createElement('script');
+  tag.dataset.systemicPublication = '';
+  tag.src = new URL('publication.js', document.currentScript.src).href;
+  document.head.append(tag);
+})();
