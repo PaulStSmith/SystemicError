@@ -7,3 +7,9 @@
 
 
 .article-body::after{content:"";display:block;clear:both}
+
+.coffee-request{clear:both;margin:2em 0;padding:24px 16px;border-block:1px solid var(--line);text-align:center;color:var(--muted);font-size:.95em}
+.article-body .coffee-request p{margin:0}.coffee-request a{font-style:italic;font-weight:600}
+.article-subscribe{margin:0 0 28px;padding:24px;background:var(--surface);border:1px solid var(--line);border-radius:4px;text-align:center}
+.article-end .article-subscribe p{font:19px/1.6 var(--serif);color:var(--text);margin:0 0 16px}
+.article-subscribe a{display:inline-block;padding:12px 22px;min-height:44px;box-sizing:border-box;background:var(--accent);color:var(--bg)!important;border-radius:4px;font:600 14px/1.5 var(--sans);text-decoration:none}
