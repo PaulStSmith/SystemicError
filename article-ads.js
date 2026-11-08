@@ -1,12 +1,13 @@
 /* One manually placed desktop display unit; account configuration controls activation. */
 (() => {
   const desktop = matchMedia('(min-width: 1101px)');
+  const configUrl = new URL('adsense.json', document.currentScript.src);
   let started = false;
   async function mountAd() {
     if (started || !desktop.matches || !document.querySelector('.article-layout')) return;
     started = true;
     try {
-      const response = await fetch(new URL('adsense.json', document.currentScript?.src || document.baseURI), {cache: 'no-cache'});
+      const response = await fetch(configUrl, {cache: 'no-cache'});
       if (!response.ok) return;
       const config = await response.json();
       if (config.enabled !== true || !/^ca-pub-\d{16}$/.test(config.publisherId || '') || !/^\d{10}$/.test(config.slotId || '')) return;
