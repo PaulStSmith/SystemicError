@@ -37,3 +37,13 @@ document.getElementById('copy-link')?.addEventListener('click',async event=>{con
   tag.src = new URL('publication.js', document.currentScript.src).href;
   document.head.append(tag);
 })();
+
+// Load the optional right-column ad independently of article rendering.
+(() => {
+  if (document.querySelector('script[data-systemic-article-ads]')) return;
+  const script = document.createElement('script');
+  script.dataset.systemicArticleAds = '';
+  script.src = new URL('article-ads.js', document.currentScript.src).href;
+  script.async = true;
+  document.head.append(script);
+})();

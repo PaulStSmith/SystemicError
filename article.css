@@ -13,3 +13,6 @@
 .article-subscribe{margin:0 0 28px;padding:24px;background:var(--surface);border:1px solid var(--line);border-radius:4px;text-align:center}
 .article-end .article-subscribe p{font:19px/1.6 var(--serif);color:var(--text);margin:0 0 16px}
 .article-subscribe a{display:inline-block;padding:12px 22px;min-height:44px;box-sizing:border-box;background:var(--accent);color:var(--bg)!important;border-radius:4px;font:600 14px/1.5 var(--sans);text-decoration:none}
+
+.article-ad{grid-column:3;grid-row:1;width:160px;min-height:600px;align-self:start;overflow:hidden}
+@media(max-width:1100px){.article-ad{display:none}}
