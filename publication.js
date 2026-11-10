@@ -4,6 +4,13 @@
   window.systemicPublicationInitialized = true;
   const base = new URL('.', document.currentScript.src);
   const url = name => new URL(name, base).href;
+  if (!document.querySelector('.subscription-page,.policy-page,script[data-systemic-article-ads]')) {
+    const script = document.createElement('script');
+    script.dataset.systemicArticleAds = '';
+    script.src = url('article-ads.js');
+    script.async = true;
+    document.head.append(script);
+  }
   if (!document.querySelector('link[data-publication-style]')) {
     const style = document.createElement('link');
     style.rel = 'stylesheet'; style.href = url('publication-pages.css');

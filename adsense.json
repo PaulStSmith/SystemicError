@@ -1,5 +1,6 @@
 {
-  "enabled": false,
+  "enabled": true,
+  "autoAds": true,
   "publisherId": "ca-pub-7603026910157192",
   "slotId": "3226708723"
 }
