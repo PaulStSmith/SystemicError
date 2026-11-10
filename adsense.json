@@ -2,5 +2,13 @@
   "enabled": true,
   "autoAds": true,
   "publisherId": "ca-pub-7603026910157192",
-  "slotId": "3226708723"
+  "slotId": "3226708723",
+  "houseAd": {
+    "enabled": true,
+    "organization": "American Red Cross",
+    "title": "Support disaster relief.",
+    "body": "Help communities affected by disasters.",
+    "url": "https://www.redcross.org/donations/your-gift-matters/disaster-relief.html",
+    "cta": "Learn how to help ↗"
+  }
 }
