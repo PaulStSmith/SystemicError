@@ -47,3 +47,28 @@ document.getElementById('copy-link')?.addEventListener('click',async event=>{con
   script.async = true;
   document.head.append(script);
 })();
+
+// Zoomment pilot: keep comments limited to this article during evaluation.
+(() => {
+  if (location.pathname !== '/articles/27244-the-right-to-be-different-is-not-the-right-to-impose.html') return;
+  const subscribe = document.querySelector('.article-end .article-subscribe');
+  if (!subscribe || document.getElementById('zoomment')) return;
+  const section = document.createElement('section');
+  section.setAttribute('aria-labelledby', 'comments-heading');
+  section.style.cssText = 'margin:2rem 0;text-align:left';
+  const divider = document.createElement('hr');
+  divider.style.cssText = 'border:0;border-top:1px solid var(--line);margin:0 0 2rem';
+  const heading = document.createElement('h2');
+  heading.id = 'comments-heading';
+  heading.textContent = 'Comments';
+  const widget = document.createElement('div');
+  widget.id = 'zoomment';
+  widget.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  widget.dataset.language = 'en';
+  section.append(divider, heading, widget);
+  subscribe.after(section);
+  const script = document.createElement('script');
+  script.src = 'https://cdn.zoomment.com/zoomment.min.js';
+  script.async = true;
+  section.append(script);
+})();
