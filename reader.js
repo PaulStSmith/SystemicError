@@ -82,7 +82,7 @@ document.getElementById('copy-link')?.addEventListener('click',async event=>{con
   close.type = 'button';
   close.className = 'image-lightbox-close';
   close.setAttribute('aria-label', 'Close enlarged image');
-  close.textContent = '❌';
+  close.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#f87171" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="m5 5 14 14M19 5 5 19"/></svg>';
   const figure = document.createElement('figure');
   const image = document.createElement('img');
   const caption = document.createElement('figcaption');
