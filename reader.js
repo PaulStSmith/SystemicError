@@ -58,3 +58,57 @@ document.getElementById('copy-link')?.addEventListener('click',async event=>{con
   script.async = true;
   widget.after(script);
 })();
+
+// Enhance existing and newly exported article covers without rebuilding pages.
+(() => {
+  const cover = document.querySelector('.article-cover');
+  const source = cover?.querySelector('img');
+  if (!source || !source.getAttribute('src')) return;
+  const frame = document.createElement('div');
+  frame.className = 'article-cover-frame';
+  source.before(frame);
+  frame.append(source);
+  const enlarge = document.createElement('button');
+  enlarge.type = 'button';
+  enlarge.className = 'image-enlarge';
+  enlarge.setAttribute('aria-label', 'Enlarge image');
+  enlarge.title = 'Enlarge image';
+  enlarge.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg>';
+  frame.append(enlarge);
+  const dialog = document.createElement('dialog');
+  dialog.className = 'image-lightbox';
+  dialog.setAttribute('aria-label', 'Enlarged article image');
+  const close = document.createElement('button');
+  close.type = 'button';
+  close.className = 'image-lightbox-close';
+  close.setAttribute('aria-label', 'Close enlarged image');
+  close.textContent = '❌';
+  const figure = document.createElement('figure');
+  const image = document.createElement('img');
+  const caption = document.createElement('figcaption');
+  caption.id = 'image-lightbox-caption';
+  figure.append(image, caption);
+  dialog.append(close, figure);
+  document.body.append(dialog);
+  let previousOverflow;
+  enlarge.addEventListener('click', () => {
+    image.src = source.currentSrc || source.src;
+    image.alt = source.alt;
+    caption.textContent = source.alt.trim();
+    caption.hidden = !caption.textContent;
+    if (caption.hidden) dialog.removeAttribute('aria-describedby');
+    else dialog.setAttribute('aria-describedby', caption.id);
+    previousOverflow = document.documentElement.style.overflow;
+    dialog.showModal();
+    document.documentElement.style.overflow = 'hidden';
+    close.focus();
+  });
+  close.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', event => {
+    if (event.target === dialog) dialog.close();
+  });
+  dialog.addEventListener('close', () => {
+    document.documentElement.style.overflow = previousOverflow;
+    enlarge.focus({preventScroll:true});
+  });
+})();
