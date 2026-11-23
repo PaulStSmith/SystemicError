@@ -20,7 +20,7 @@
 /* Hero controls stay within the image, above any existing credit caption. */
 .article-cover-frame{position:relative}
 .image-enlarge{position:absolute;right:12px;top:12px;display:grid;place-items:center;width:44px;height:44px;padding:10px;border:1px solid #ffffff80;border-radius:5px;background:#101713d9;color:#fff;opacity:0;transition:opacity .15s}
-.article-cover-frame:hover .image-enlarge,.article-cover-frame:focus-within .image-enlarge{opacity:1}
+.article-cover-frame:hover .image-enlarge,.image-enlarge:focus-visible{opacity:1}
 .image-enlarge:hover{background:#101713}
 @media(hover:none){.image-enlarge{opacity:1}}
 .image-lightbox{position:fixed;inset:0;width:100%;max-width:none;height:100%;height:100dvh;max-height:none;margin:0;padding:64px 20px 20px;box-sizing:border-box;border:0;background:#0b100df5;color:#fff;overflow:hidden}
